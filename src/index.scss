@@ -1,2 +1,5 @@
-@import "cx/src/variables";
-@import "cx/src/index";
+@use "sass:meta";
+
+@layer components {
+  @include meta.load-css("cx-theme-variables/src/index");
+}

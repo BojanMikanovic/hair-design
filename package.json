@@ -12,14 +12,15 @@
   "author": "Marko Stijak",
   "license": "ISC",
   "dependencies": {
-    "cx": "^26.0.12",
-    "cx-react": "^24.7.1"
+    "cx": "^26.3.4",
+    "cx-react": "^26.1.0",
+    "cx-theme-variables": "^26.3.3"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "sass": "^1.96.0",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
-    "vite": "^7.3.0",
-    "tailwindcss": "^4.1.18"
+    "vite": "^7.3.0"
   }
 }

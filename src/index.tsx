@@ -4,8 +4,12 @@ import { createAccessorModelProxy, Store } from "cx/data";
 import { expr, startHotAppLoop } from "cx/ui";
 import { Debug } from "cx/util";
 import { Button, TextField } from "cx/widgets";
+import { renderThemeVariables, defaultPreset } from "cx-theme-variables";
+
 import "./tailwind.css";
 import "./index.scss";
+
+renderThemeVariables(defaultPreset);
 
 Debug.enable("app-data");
 
@@ -44,7 +48,7 @@ startHotAppLoop(
   { hot: import.meta.hot },
   document.getElementById("app")!,
   store,
-  App
+  App,
 );
 
 // this is required even though startHotAppLoop calls it too
