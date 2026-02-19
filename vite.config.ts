@@ -7,12 +7,4 @@ export default defineConfig({
     jsx: "automatic",
     jsxImportSource: "cx",
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        silenceDeprecations: ["legacy-js-api", "import", "global-builtin"],
-        quietDeps: true,
-      },
-    },
-  },
 });
