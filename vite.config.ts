@@ -3,8 +3,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [tailwindcss()],
-  esbuild: {
-    jsx: "automatic",
-    jsxImportSource: "cx",
+  oxc: {
+    jsx: {
+      runtime: "automatic",
+      importSource: "cx",
+    },
   },
 });
