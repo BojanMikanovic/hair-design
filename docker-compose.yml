@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  postgres:
+    container_name: hair-design
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: hair_design
+      PGDATA: /var/lib/postgresql/data
+    restart: on-failure
+    ports:
+      - 5471:5471
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    command: -p 5471
+
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: hair-design-pgadmin
+    depends_on:
+      - postgres
+    ports:
+      - 54347:54347
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@hair-design.com
+      PGADMIN_DEFAULT_PASSWORD: dev
+      PGADMIN_LISTEN_PORT: 54347
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    links:
+      - "postgres:postgres"
+
+volumes:
+  postgres:
+  pgadmin:

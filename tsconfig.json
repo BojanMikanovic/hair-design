@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "cx",
-    "module": "es2022",
-    "moduleResolution": "bundler",
-    "esModuleInterop": true
-  }
-}

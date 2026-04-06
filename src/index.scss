@@ -1,5 +1,0 @@
-@use "sass:meta";
-
-@layer components {
-  @include meta.load-css("cx-theme-variables/src/index");
-}

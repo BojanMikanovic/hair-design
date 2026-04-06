@@ -1,2 +1,33 @@
-node_modules
-dist
+# ----------------------
+# .NET
+# ----------------------
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+
+# Visual Studio
+.vs/
+server/.vs/
+
+# ----------------------
+# Node / Frontend
+# ----------------------
+node_modules/
+dist/
+build/
+.cache/
+
+# ----------------------
+# Env / configs
+# ----------------------
+.env
+.env.local
+
+# ----------------------
+# OS
+# ----------------------
+.DS_Store
+Thumbs.db

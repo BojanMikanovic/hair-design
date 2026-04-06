@@ -1,0 +1,13 @@
+node_modules
+.log
+*.log
+dist
+.swc
+.claude
+
+.yarn/*
+# !.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+# !.yarn/sdks
+!.yarn/versions
