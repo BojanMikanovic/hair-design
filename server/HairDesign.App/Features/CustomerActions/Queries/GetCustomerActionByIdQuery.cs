@@ -21,6 +21,7 @@ namespace HairDesign.App.Modules.CustomerActions.Queries
                 {
                     Id = x.Id,
                     CustomerId = x.CustomerId,
+                    CustomerName = x.Customer.FirstName + " " + x.Customer.LastName,
                     Title = x.Title,
                     Date = x.Date,
                     Note = x.Note,

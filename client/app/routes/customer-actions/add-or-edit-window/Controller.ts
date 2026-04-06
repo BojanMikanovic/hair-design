@@ -1,0 +1,73 @@
+import { Controller } from 'cx/ui';
+import m from './model';
+import { createCustomerAction, getCustomerActionById, updateCustomerAction } from '../../../api/CustomerActionApi';
+import { getAllCustomers } from '../../../api/CustomerApi';
+import { showSuccessToast, showErrorToast } from '../../../components/toasts';
+
+export default (resolve: (value: boolean) => void, actionId?: string) =>
+   class extends Controller {
+      onInit() {
+         if (actionId) {
+            this.loadCustomerAction(actionId);
+         }
+      }
+
+      async loadCustomerAction(id: string) {
+         try {
+            const customerAction = await getCustomerActionById(id);
+            this.store.set(m.customerAction, customerAction);
+         } catch (error) {
+            console.error(error);
+            showErrorToast('Greška prilikom učitavanja usluge');
+         }
+      }
+
+      async queryCustomers(query: string) {
+         try {
+            const customers = await getAllCustomers();
+
+            const options = (customers || []).map((x) => ({
+               id: x.id,
+               text: `${x.firstName} ${x.lastName}`,
+            }));
+
+            if (!query) return options;
+
+            const q = query.toLowerCase();
+            return options.filter((x) => x.text.toLowerCase().includes(q));
+         } catch (error) {
+            console.error(error);
+            showErrorToast('Greška prilikom učitavanja klijenata');
+            return [];
+         }
+      }
+
+      async addOrEditCustomerAction() {
+         this.store.set(m.formVisited, true);
+
+         if (this.store.get(m.formInvalid)) return;
+
+         this.store.set(m.saving, true);
+
+         try {
+            const customerAction = this.store.get(m.customerAction);
+
+            if (actionId) {
+               await updateCustomerAction(actionId, customerAction);
+               showSuccessToast('Usluga je uspješno izmijenjena');
+            } else {
+               await createCustomerAction(customerAction);
+               showSuccessToast('Usluga je uspješno kreirana');
+            }
+
+            resolve(true);
+            // @ts-expect-error
+            this.instance.dismiss();
+         } catch (error) {
+            console.error(error);
+            showErrorToast('Greška prilikom čuvanja usluge');
+         } finally {
+            this.store.set(m.saving, false);
+         }
+      }
+   };

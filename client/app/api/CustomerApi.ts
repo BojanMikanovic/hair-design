@@ -1,8 +1,9 @@
+import { CustomerResponse } from '../routes/customers/list/model';
 import { DELETE, GET, POST, PUT } from './util/methods';
 
 const serviceId = 'Customers';
 
-export function getAllCustomers() {
+export function getAllCustomers(): Promise<CustomerResponse[]> {
    return GET(serviceId);
 }
 

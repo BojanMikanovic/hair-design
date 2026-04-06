@@ -86,6 +86,7 @@ const ChildItem = createFunctionalComponent(({ text, href, badge }: ChildItemPro
 const NavigationContent = createFunctionalComponent(() => (
    <cx>
       <NavItem text="Klijenti" icon="users" href="~/customers" />
+      <NavItem text="Usluge" icon="scissors" href="~/customer-actions" />
    </cx>
 ));
 

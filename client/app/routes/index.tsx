@@ -3,6 +3,7 @@ import { DocumentTitle, RedirectRoute, Route } from 'cx/widgets';
 import { CheckerLayout } from '../layout/CheckerLayout';
 import SignIn from './pages/sign-in';
 import Customers from './customers/list';
+import CustomerActions from './customer-actions/list';
 
 export default (
    <cx>
@@ -14,6 +15,9 @@ export default (
          <CheckerLayout>
             <Route route="~/customers" url={bind('url')} prefix>
                <Customers />
+            </Route>
+            <Route route="~/customer-actions" url={bind('url')} prefix>
+               <CustomerActions />
             </Route>
          </CheckerLayout>
       </FirstVisibleChildLayout>
