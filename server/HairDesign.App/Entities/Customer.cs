@@ -1,4 +1,3 @@
-using System;
 
 namespace HairDesign.App.Entities
 {
@@ -11,5 +10,7 @@ namespace HairDesign.App.Entities
         public string? Email { get; set; }
         public string? Notes { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public ICollection<CustomerAction> Actions { get; set; } = new List<CustomerAction>();
     }
 }
