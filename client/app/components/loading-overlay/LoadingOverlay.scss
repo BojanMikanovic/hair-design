@@ -1,0 +1,90 @@
+$loading-overlay-background-color-dark: rgba($slate-600, 0.85);
+$loading-overlay-background-color: rgba($slate-200, 0.5) !default;
+
+.cxb-loading-overlay-container {
+   position: absolute;
+   display: flex;
+   flex-direction: column;
+   left: 0;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   align-items: center;
+   justify-content: center;
+   background: $loading-overlay-background-color;
+
+   &.cxm-dark {
+      @if variable-exists($name: 'loading-overlay-background-color-dark') {
+         background-color: $loading-overlay-background-color-dark;
+      }
+      // @if $theme-type == 'light' {
+      // 	color: rgba(#fff, 0.77);
+      // }
+      // .#{$element}loading-overlay-error {
+      // 	color: $warning-color-dark;
+      // }
+   }
+
+   &.cxm-inset {
+      padding: 5px 10px;
+   }
+
+   &.cxs-animated {
+      opacity: 0;
+      transition: opacity 300ms;
+      pointer-events: none;
+
+      &.on {
+         opacity: 1;
+         pointer-events: all;
+         transition: none;
+      }
+   }
+}
+
+.cxe-loading-overlay-indicator {
+   text-transform: uppercase;
+}
+
+.cxe-loading-overlay-error {
+   color: $primary-400;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 80%;
+   max-width: 500px;
+   text-align: center;
+   line-height: 1.6;
+
+   .error-buttons {
+      margin: 20px 0 0;
+   }
+}
+
+@keyframes fadein {
+   from {
+   }
+   to {
+      opacity: 1;
+   }
+}
+
+@keyframes fadeout {
+   from {
+   }
+   to {
+      opacity: 0;
+   }
+}
+
+.loading-overlay-wrapper {
+   display: flex;
+   flex-direction: column;
+   overflow: auto;
+   flex: 1;
+   position: relative;
+}
+
+span.user-unselectable-text {
+   user-select: none !important;
+}

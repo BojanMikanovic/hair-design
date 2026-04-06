@@ -1,7 +1,7 @@
-using HairDesign.App.Entities;
-using HairDesign.App.Infrastructure;
+using HairDesign.App.Modules.Customers.Commands;
+using HairDesign.App.Modules.Customers.Models;
+using HairDesign.App.Modules.Customers.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HairDesign.App.Controllers
 {
@@ -9,77 +9,46 @@ namespace HairDesign.App.Controllers
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-
-        public CustomersController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> Get()
+        public async Task<IActionResult> Get([FromServices] GetAllCustomersQuery query)
         {
-            var customers = await _context.Customers
-                .OrderBy(x => x.LastName)
-                .ThenBy(x => x.FirstName)
-                .ToListAsync();
-
-            return Ok(customers);
+            return Ok(await query.Execute());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid id, [FromServices] GetCustomerByIdQuery query)
         {
-            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (customer == null)
-                return NotFound();
-
-            return Ok(customer);
+            var result = await query.Execute(id);
+            if (result == null) return NotFound();
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Customer>> Post([FromBody] Customer customer)
+        public async Task<IActionResult> Post(
+            [FromBody] CustomerUpdateDTO dto,
+            [FromServices] CreateCustomerCommand command)
         {
-            customer.Id = Guid.NewGuid();
-            customer.CreatedAt = DateTime.UtcNow;
-
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetById), new { id = customer.Id }, customer);
+            return Ok(await command.Execute(dto));
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Customer>> Put(Guid id, [FromBody] Customer model)
+        public async Task<IActionResult> Put(
+            Guid id,
+            [FromBody] CustomerUpdateDTO dto,
+            [FromServices] UpdateCustomerCommand command)
         {
-            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (customer == null)
-                return NotFound();
-
-            customer.FirstName = model.FirstName;
-            customer.LastName = model.LastName;
-            customer.Phone = model.Phone;
-            customer.Email = model.Email;
-            customer.Notes = model.Notes;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(customer);
+            var result = await command.Execute(id, dto);
+            if (result == null) return NotFound();
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(
+            Guid id,
+            [FromServices] DeleteCustomerCommand command)
         {
-            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (customer == null)
-                return NotFound();
-
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
-
+            var success = await command.Execute(id);
+            if (!success) return NotFound();
             return NoContent();
         }
     }

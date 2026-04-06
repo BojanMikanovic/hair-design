@@ -1,21 +1,25 @@
 using HairDesign.App.Configuration;
+using HairDesign.App.Modules.Customers.Commands;
+using HairDesign.App.Modules.Customers.Queries;
 using HairDesign.App.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDatabase(builder.Configuration);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<GetAllCustomersQuery>();
+builder.Services.AddScoped<GetCustomerByIdQuery>();
+builder.Services.AddScoped<CreateCustomerCommand>();
+builder.Services.AddScoped<UpdateCustomerCommand>();
+builder.Services.AddScoped<DeleteCustomerCommand>();
 
 var app = builder.Build();
 
 MigrationsUtil.MigrateDatabase(app.Services);
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

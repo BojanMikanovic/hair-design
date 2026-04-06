@@ -1,12 +1,10 @@
-using System;
-
-namespace HairDesign.App.Entities
+namespace HairDesign.App.Modules.Customers.Models
 {
-    public class Customer
+    public class CustomerResponse
     {
         public Guid Id { get; set; }
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string? Phone { get; set; }
         public string? Email { get; set; }
         public string? Notes { get; set; }
