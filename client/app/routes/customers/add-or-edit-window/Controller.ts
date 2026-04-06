@@ -17,7 +17,7 @@ export default (resolve: (value: boolean) => void, customerId?: string) =>
             this.store.set(m.customer, customer);
          } catch (error) {
             console.error(error);
-            showErrorToast('Failed to load customer');
+            showErrorToast('Greška prilikom učitavanja klijenta');
          }
       }
 
@@ -33,10 +33,10 @@ export default (resolve: (value: boolean) => void, customerId?: string) =>
 
             if (customerId) {
                await updateCustomer(customerId, customer);
-               showSuccessToast('Customer was successfully updated');
+               showSuccessToast('Klijent je uspješno izmijenjen');
             } else {
                await createCustomer(customer);
-               showSuccessToast('Customer was successfully created');
+               showSuccessToast('Klijent je uspješno kreiran');
             }
 
             resolve(true);
@@ -44,7 +44,7 @@ export default (resolve: (value: boolean) => void, customerId?: string) =>
             this.instance.dismiss();
          } catch (error) {
             console.error(error);
-            showErrorToast('Failed to save customer');
+            showErrorToast('Greška prilikom čuvanja klijenta');
          } finally {
             this.store.set(m.saving, false);
          }

@@ -24,7 +24,7 @@ export default class extends Controller<Model> {
          this.store.set($page.customers, customers);
       } catch (error) {
          console.error(error);
-         showErrorToast('Failed to load customers');
+         showErrorToast('Greška prilikom učitavanja klijenata');
       } finally {
          this.store.set($page.loading, false);
       }
@@ -53,12 +53,12 @@ export default class extends Controller<Model> {
 
       try {
          await deleteCustomer(customerId);
-         showSuccessToast('Customer was successfully deleted');
+         showSuccessToast('Klijent je uspješno obrisan');
          this.store.set($page.selected, null);
          await this.loadCustomers();
       } catch (error) {
          console.error(error);
-         showErrorToast('Failed to delete customer');
+         showErrorToast('Greška prilikom brisanja klijenta');
       }
    }
 }

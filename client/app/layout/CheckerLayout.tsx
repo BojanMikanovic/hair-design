@@ -85,8 +85,7 @@ const ChildItem = createFunctionalComponent(({ text, href, badge }: ChildItemPro
 
 const NavigationContent = createFunctionalComponent(() => (
    <cx>
-      <div class="px-6 py-3 text-gray-400 text-sm">Main Menu</div>
-      <NavItem text="Customers" icon="users" href="~/customers" />
+      <NavItem text="Klijenti" icon="users" href="~/customers" />
    </cx>
 ));
 
@@ -95,7 +94,12 @@ export const CheckerLayout = createFunctionalComponent(({ children }: { children
       <div class="h-full flex" controller={Controller}>
          <div class="hidden lg:flex w-[250px] border-r flex-col">
             <div class="border-b py-2 px-4 lg:px-6 flex items-center">
-               <Logo2 />
+               <div class="flex items-center gap-3">
+                  <div class="flex h-15 w-15 items-center justify-center rounded-full bg-red-500 text-white">
+                     <Icon name="scissors" class="w-10 h-10" />
+                  </div>
+                  <div class="text-lg font-semibold text-red-600">Hair Studio</div>
+               </div>
             </div>
 
             <div class="pt-3 overflow-y-auto flex-1">

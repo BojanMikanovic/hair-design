@@ -5,17 +5,17 @@ const getColumns = () => {
    const cb = new GridColumnBuilder<CustomerResponse>();
 
    cb.add((m) => m.firstName, {
-      header: 'First Name',
+      header: 'Ime',
       sortable: true,
    });
 
    cb.add((m) => m.lastName, {
-      header: 'Last Name',
+      header: 'Prezime',
       sortable: true,
    });
 
    cb.add((m) => m.phone, {
-      header: 'Phone',
+      header: 'Telefon',
       sortable: true,
    });
 
@@ -25,12 +25,12 @@ const getColumns = () => {
    });
 
    cb.add((m) => m.notes, {
-      header: 'Notes',
+      header: 'Napomena',
       sortable: true,
    });
 
    cb.add((m) => m.createdAt, {
-      header: 'Created',
+      header: 'Datum kreiranja',
       sortable: true,
       format: 'd',
    });

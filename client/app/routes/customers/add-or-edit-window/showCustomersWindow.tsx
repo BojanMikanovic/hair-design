@@ -8,7 +8,7 @@ export const showCustomersWindow = (customerId?: string): Promise<boolean> => {
       const window: any = Window.create(
          <cx>
             <Window
-               title={customerId ? 'Edit customer' : 'Add new customer'}
+               title={customerId ? 'Izmjena klijenta' : 'Novi klijent'}
                modal
                center
                closeOnEscape
@@ -21,7 +21,7 @@ export const showCustomersWindow = (customerId?: string): Promise<boolean> => {
                   <div className="p-4">
                      <LabelsTopLayout vertical mod="stretch">
                         <TextField
-                           label="First Name"
+                           label="Ime"
                            value={m.customer.firstName}
                            required
                            trim
@@ -29,13 +29,13 @@ export const showCustomersWindow = (customerId?: string): Promise<boolean> => {
                            style={{ width: '100%' }}
                         />
                         <TextField
-                           label="Last Name"
+                           label="Prezime"
                            value={m.customer.lastName}
                            required
                            trim
                            style={{ width: '100%' }}
                         />
-                        <TextField label="Phone" value={m.customer.phone} trim style={{ width: '100%' }} />
+                        <TextField label="Telefon" value={m.customer.phone} trim style={{ width: '100%' }} />
                         <TextField
                            label="Email"
                            value={m.customer.email}
@@ -43,13 +43,13 @@ export const showCustomersWindow = (customerId?: string): Promise<boolean> => {
                            inputType="email"
                            style={{ width: '100%' }}
                         />
-                        <TextArea label="Notes" value={m.customer.notes} rows={4} style={{ width: '100%' }} />
+                        <TextArea label="Napomena" value={m.customer.notes} rows={4} style={{ width: '100%' }} />
                      </LabelsTopLayout>
                   </div>
 
                   <div putInto="footer" className="flex justify-end gap-2 px-4 py-3">
-                     <Button dismiss text="Cancel" mod="hollow" />
-                     <Button mod="primary" onClick="addOrEditCustomer" text="Save" disabled={m.saving} />
+                     <Button dismiss text="Otkaži" mod="hollow" />
+                     <Button mod="primary" onClick="addOrEditCustomer" text="Sačuvaj" disabled={m.saving} />
                   </div>
                </ValidationGroup>
             </Window>

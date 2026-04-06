@@ -10,11 +10,11 @@ export default (
       <PureContainer controller={Controller}>
          <div className="flex h-full flex-col p-2">
             <div className="mb-2 flex items-center justify-between">
-               <h3 className="text-lg font-semibold">Customers</h3>
+               <h3 className="text-lg font-semibold">Klijenti</h3>
 
                <div className="flex items-center gap-2">
-                  <TextField placeholder="Search customers" value={$page.searchQuery} icon="fa-search" trim showClear />
-                  <Button onClick="addCustomer" text="Add" mod="primary" icon="fa-add" />
+                  <TextField placeholder="Pretraži klijente" value={$page.searchQuery} icon="search" trim showClear />
+                  <Button onClick="addCustomer" text="Dodaj" mod="primary" icon="plus" />
                </div>
             </div>
 
@@ -22,24 +22,25 @@ export default (
                <div className="flex justify-between border-b p-2">
                   <div>
                      <Button
-                        text="Edit"
+                        text="Izmijeni"
                         disabled={expr($page.selected, (s) => !s)}
-                        icon="fa-edit"
+                        icon="pencil"
                         mod="secondary"
                         class="mr-2"
                         onClick="editCustomer"
                      />
+
                      <Button
-                        text="Delete"
+                        text="Obriši"
                         disabled={expr($page.selected, (s) => !s)}
-                        icon="fa-trash"
+                        icon="x"
                         mod="danger"
                         onClick="deleteCustomer"
                         confirm={{
-                           title: 'Delete customer',
-                           message: 'Do you really want to delete selected customer?',
-                           yesText: 'Delete',
-                           noText: 'Cancel',
+                           title: 'Brisanje klijenta',
+                           message: 'Da li ste sigurni da želite obrisati odabranog klijenta?',
+                           yesText: 'Obriši',
+                           noText: 'Otkaži',
                            yesButtonMod: 'danger',
                         }}
                      />
