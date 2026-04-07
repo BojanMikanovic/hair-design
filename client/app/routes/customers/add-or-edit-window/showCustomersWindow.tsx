@@ -15,7 +15,7 @@ export const showCustomersWindow = (customerId?: string): Promise<boolean> => {
                controller={getController(resolve, customerId)}
                onDestroy={() => resolve(false)}
                dismissOnPopState
-               style={{ width: '480px' }}
+               style={{ width: '400px' }}
             >
                <ValidationGroup invalid={m.formInvalid} visited={m.formVisited}>
                   <div className="p-4">

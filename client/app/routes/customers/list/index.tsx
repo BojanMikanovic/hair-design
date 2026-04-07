@@ -13,7 +13,13 @@ export default (
                <h3 className="text-lg font-semibold">Klijenti</h3>
 
                <div className="flex items-center gap-2">
-                  <TextField placeholder="Pretraži klijente" value={$page.searchQuery} icon="search" trim showClear />
+                  <TextField
+                     placeholder="Pretraži klijente..."
+                     value={$page.searchQuery}
+                     icon="search"
+                     trim
+                     showClear
+                  />
                   <Button onClick="addCustomer" text="Dodaj" mod="primary" icon="plus" />
                </div>
             </div>
@@ -50,7 +56,7 @@ export default (
                <Grid<CustomerResponse>
                   records={$page.customers}
                   columns={columns}
-                  emptyText="No data to show"
+                  emptyText="Nema podataka"
                   className="flex-1"
                   onRowDoubleClick="editCustomer"
                   selection={{ type: KeySelection, bind: $page.selected, keyField: 'id' }}

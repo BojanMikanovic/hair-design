@@ -25,7 +25,7 @@ export default (
                      style={{ width: '220px' }}
                   />
 
-                  <TextField placeholder="Pretraži usluge" value={$page.searchQuery} icon="search" trim showClear />
+                  <TextField placeholder="Pretraži usluge..." value={$page.searchQuery} icon="search" trim showClear />
                   <Button onClick="addCustomerAction" text="Dodaj" mod="primary" icon="plus" />
                </div>
             </div>
@@ -62,7 +62,7 @@ export default (
                <Grid<CustomerActionResponse>
                   records={$page.actions}
                   columns={columns}
-                  emptyText="No data to show"
+                  emptyText="Nema podataka"
                   className="flex-1"
                   onRowDoubleClick="editCustomerAction"
                   selection={{ type: KeySelection, bind: $page.selected, keyField: 'id' }}
