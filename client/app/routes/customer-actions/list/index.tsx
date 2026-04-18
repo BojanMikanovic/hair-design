@@ -10,7 +10,7 @@ export default (
       <PureContainer controller={Controller}>
          <div className="flex h-full flex-col p-2">
             <div className="mb-2 flex items-center justify-between">
-               <h3 className="text-lg font-semibold">Usluge</h3>
+               <h3 className="text-lg font-semibold">Usluge klijentima</h3>
 
                <div className="flex items-center gap-2">
                   <LookupField

@@ -26,7 +26,7 @@ export default class extends Controller<Model> {
          this.store.set($page.actions, actions);
       } catch (error) {
          console.error(error);
-         showErrorToast('Greška prilikom učitavanja usluge');
+         showErrorToast('Greška prilikom učitavanja usluga klijentima');
       } finally {
          this.store.set($page.loading, false);
       }
@@ -75,12 +75,12 @@ export default class extends Controller<Model> {
 
       try {
          await deleteCustomerAction(actionId);
-         showSuccessToast('Usluga je uspješno obrisana');
+         showSuccessToast('Usluga klijentu je uspješno obrisana');
          this.store.set($page.selected, null);
          await this.loadCustomerActions();
       } catch (error) {
          console.error(error);
-         showErrorToast('Greška prilikom brisanja usluge');
+         showErrorToast('Greška prilikom brisanja usluge klijentu');
       }
    }
 }

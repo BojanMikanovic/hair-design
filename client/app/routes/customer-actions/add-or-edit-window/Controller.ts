@@ -20,7 +20,7 @@ export default (resolve: (value: boolean) => void, actionId?: string) =>
             this.store.set(m.customerAction, customerAction);
          } catch (error) {
             console.error(error);
-            showErrorToast('Greška prilikom učitavanja usluge');
+            showErrorToast('Greška prilikom učitavanja usluge klijentu');
          }
       }
 
@@ -76,10 +76,10 @@ export default (resolve: (value: boolean) => void, actionId?: string) =>
 
             if (actionId) {
                await updateCustomerAction(actionId, customerAction);
-               showSuccessToast('Usluga je uspješno izmijenjena');
+               showSuccessToast('Usluga klijentu je uspješno izmijenjena');
             } else {
                await createCustomerAction(customerAction);
-               showSuccessToast('Usluga je uspješno kreirana');
+               showSuccessToast('Usluga klijentu je uspješno kreirana');
             }
 
             resolve(true);
@@ -87,7 +87,7 @@ export default (resolve: (value: boolean) => void, actionId?: string) =>
             this.instance.dismiss();
          } catch (error) {
             console.error(error);
-            showErrorToast('Greška prilikom čuvanja usluge');
+            showErrorToast('Greška prilikom čuvanja usluge klijentu');
          } finally {
             this.store.set(m.saving, false);
          }

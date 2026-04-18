@@ -8,7 +8,7 @@ export const showCustomerActionsWindow = (actionId?: string): Promise<boolean> =
       const window: any = Window.create(
          <cx>
             <Window
-               title={actionId ? 'Izmjena usluge' : 'Nova usluga'}
+               title={actionId ? 'Izmjena usluge klijentu' : 'Nova usluga klijentu'}
                modal
                center
                closeOnEscape
