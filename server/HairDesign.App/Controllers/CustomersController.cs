@@ -1,6 +1,6 @@
-using HairDesign.App.Modules.Customers.Commands;
-using HairDesign.App.Modules.Customers.Models;
-using HairDesign.App.Modules.Customers.Queries;
+using HairDesign.App.Features.Customers.Commands;
+using HairDesign.App.Features.Customers.Models;
+using HairDesign.App.Features.Customers.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairDesign.App.Controllers

@@ -1,10 +1,10 @@
 import { Controller, Instance } from 'cx/ui';
 import { deleteCustomerAction, getAllCustomerActions } from '../../../api/CustomerActionApi';
+import { getAllCustomers } from '../../../api/CustomerApi';
+import { showErrorToast, showSuccessToast } from '../../../components/toasts';
+import { CustomerResponse } from '../../customers/list/model';
 import { showCustomerActionsWindow } from '../add-or-edit-window/showCustomerActionsWindow';
 import { $page, Model } from './model';
-import { showErrorToast, showSuccessToast } from '../../../components/toasts';
-import { getAllCustomers } from '../../../api/CustomerApi';
-import { CustomerResponse } from '../../customers/list/model';
 
 export default class extends Controller<Model> {
    onInit() {

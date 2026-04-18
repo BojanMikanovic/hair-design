@@ -4,7 +4,8 @@ export interface CustomerActionUpdateDTO {
    id?: string;
    customerId: string;
    customerName?: string | null;
-   title: string;
+   serviceId: string;
+   serviceName?: string | null;
    date: string;
    note?: string | null;
    colorNote?: string | null;

@@ -1,25 +1,25 @@
 using HairDesign.App.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace HairDesign.App.Features.CustomerActions.Commands
+namespace HairDesign.App.Features.services.commands
 {
-    public class DeleteCustomerActionCommand
+    public class DeleteServiceCommand
     {
         private readonly ApplicationDbContext _context;
 
-        public DeleteCustomerActionCommand(ApplicationDbContext context)
+        public DeleteServiceCommand(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public async Task<bool> Execute(Guid id)
         {
-            var action = await _context.CustomerActions.FirstOrDefaultAsync(x => x.Id == id);
+            var service = await _context.Services.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (action == null)
+            if (service == null)
                 return false;
 
-            _context.CustomerActions.Remove(action);
+            _context.Services.Remove(service);
             await _context.SaveChangesAsync();
 
             return true;

@@ -1,8 +1,8 @@
+using HairDesign.App.Features.CustomerActions.Models;
 using HairDesign.App.Infrastructure;
-using HairDesign.App.Modules.CustomerActions.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HairDesign.App.Modules.CustomerActions.Commands
+namespace HairDesign.App.Features.CustomerActions.Commands
 {
     public class UpdateCustomerActionCommand
     {
@@ -15,17 +15,26 @@ namespace HairDesign.App.Modules.CustomerActions.Commands
 
         public async Task<CustomerActionResponse?> Execute(Guid id, CustomerActionUpdateDTO dto)
         {
-            var action = await _context.CustomerActions.FirstOrDefaultAsync(x => x.Id == id);
+            var action = await _context.CustomerActions
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (action == null)
                 return null;
 
-            var exists = await _context.Customers.AnyAsync(x => x.Id == dto.CustomerId);
-            if (!exists)
+            var customer = await _context.Customers
+                .FirstOrDefaultAsync(x => x.Id == dto.CustomerId);
+
+            if (customer == null)
                 throw new Exception("Customer not found");
 
+            var service = await _context.Services
+                .FirstOrDefaultAsync(x => x.Id == dto.ServiceId);
+
+            if (service == null)
+                throw new Exception("Service not found");
+
             action.CustomerId = dto.CustomerId;
-            action.Title = dto.Title;
+            action.ServiceId = dto.ServiceId;
             action.Date = dto.Date;
             action.Note = dto.Note;
             action.ColorNote = dto.ColorNote;
@@ -37,7 +46,9 @@ namespace HairDesign.App.Modules.CustomerActions.Commands
             {
                 Id = action.Id,
                 CustomerId = action.CustomerId,
-                Title = action.Title,
+                CustomerName = customer.FirstName + " " + customer.LastName,
+                ServiceId = action.ServiceId,
+                ServiceName = service.Name,
                 Date = action.Date,
                 Note = action.Note,
                 ColorNote = action.ColorNote,

@@ -1,8 +1,8 @@
+using HairDesign.App.Features.CustomerActions.Models;
 using HairDesign.App.Infrastructure;
-using HairDesign.App.Modules.CustomerActions.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HairDesign.App.Modules.CustomerActions.Queries
+namespace HairDesign.App.Features.CustomerActions.Queries
 {
     public class GetCustomerActionByIdQuery
     {
@@ -22,7 +22,8 @@ namespace HairDesign.App.Modules.CustomerActions.Queries
                     Id = x.Id,
                     CustomerId = x.CustomerId,
                     CustomerName = x.Customer.FirstName + " " + x.Customer.LastName,
-                    Title = x.Title,
+                    ServiceId = x.ServiceId,
+                    ServiceName = x.Service.Name,
                     Date = x.Date,
                     Note = x.Note,
                     ColorNote = x.ColorNote,

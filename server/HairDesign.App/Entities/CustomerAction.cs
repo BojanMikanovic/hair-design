@@ -6,7 +6,7 @@ namespace HairDesign.App.Entities
 
         public Guid CustomerId { get; set; }
 
-        public required string Title { get; set; }
+        public Guid ServiceId { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -19,5 +19,7 @@ namespace HairDesign.App.Entities
         public DateTime CreatedAt { get; set; }
 
         public Customer Customer { get; set; } = null!;
+        
+        public Service Service { get; set; } = null!;
     }
 }

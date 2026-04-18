@@ -33,11 +33,16 @@ export const showCustomerActionsWindow = (actionId?: string): Promise<boolean> =
                            style={{ width: '100%' }}
                         />
 
-                        <TextField
-                           label="Naziv"
-                           value={m.customerAction.title}
+                        <LookupField
+                           label="Usluga"
+                           value={m.customerAction.serviceId}
+                           text={m.customerAction.serviceName}
+                           onQuery="queryServices"
+                           optionIdField="id"
+                           optionTextField="text"
+                           fetchAll
+                           cacheAll
                            required
-                           trim
                            style={{ width: '100%' }}
                         />
 

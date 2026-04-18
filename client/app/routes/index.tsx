@@ -4,6 +4,7 @@ import { CheckerLayout } from '../layout/CheckerLayout';
 import SignIn from './pages/sign-in';
 import Customers from './customers/list';
 import CustomerActions from './customer-actions/list';
+import Services from './services/list';
 
 export default (
    <cx>
@@ -18,6 +19,9 @@ export default (
             </Route>
             <Route route="~/customer-actions" url={bind('url')} prefix>
                <CustomerActions />
+            </Route>
+            <Route route="~/services" url={bind('url')} prefix>
+               <Services />
             </Route>
          </CheckerLayout>
       </FirstVisibleChildLayout>

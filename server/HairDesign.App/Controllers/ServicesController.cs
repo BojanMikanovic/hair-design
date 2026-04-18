@@ -1,22 +1,22 @@
-using HairDesign.App.Features.CustomerActions.Commands;
-using HairDesign.App.Features.CustomerActions.Models;
-using HairDesign.App.Features.CustomerActions.Queries;
+using HairDesign.App.Features.services.commands;
+using HairDesign.App.Features.services.models;
+using HairDesign.App.Features.services.queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairDesign.App.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CustomerActionsController : ControllerBase
+    public class ServicesController : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> Get([FromServices] GetAllCustomerActionsQuery query)
+        public async Task<IActionResult> Get([FromServices] GetAllServicesQuery query)
         {
             return Ok(await query.Execute());
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id, [FromServices] GetCustomerActionByIdQuery query)
+        public async Task<IActionResult> GetById(Guid id, [FromServices] GetServiceByIdQuery query)
         {
             var result = await query.Execute(id);
             if (result == null) return NotFound();
@@ -25,8 +25,8 @@ namespace HairDesign.App.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post(
-            [FromBody] CustomerActionUpdateDTO dto,
-            [FromServices] CreateCustomerActionCommand command)
+            [FromBody] ServiceUpdateDTO dto,
+            [FromServices] CreateServiceCommand command)
         {
             return Ok(await command.Execute(dto));
         }
@@ -34,8 +34,8 @@ namespace HairDesign.App.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(
             Guid id,
-            [FromBody] CustomerActionUpdateDTO dto,
-            [FromServices] UpdateCustomerActionCommand command)
+            [FromBody] ServiceUpdateDTO dto,
+            [FromServices] UpdateServiceCommand command)
         {
             var result = await command.Execute(id, dto);
             if (result == null) return NotFound();
@@ -45,7 +45,7 @@ namespace HairDesign.App.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(
             Guid id,
-            [FromServices] DeleteCustomerActionCommand command)
+            [FromServices] DeleteServiceCommand command)
         {
             var success = await command.Execute(id);
             if (!success) return NotFound();

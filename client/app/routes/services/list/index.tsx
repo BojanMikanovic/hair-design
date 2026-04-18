@@ -1,9 +1,9 @@
 import { KeySelection, PureContainer, expr } from 'cx/ui';
 import { getSearchQueryPredicate } from 'cx/util';
-import { Button, DocumentTitle, Grid, LookupField, TextField } from 'cx/widgets';
+import { Button, DocumentTitle, Grid, TextField } from 'cx/widgets';
 import Controller from './Controller';
 import columns from './columns';
-import { $page, CustomerActionResponse } from './model';
+import { $page, ServiceResponse } from './model';
 
 export default (
    <cx>
@@ -13,20 +13,8 @@ export default (
                <h3 className="text-lg font-semibold">Usluge</h3>
 
                <div className="flex items-center gap-2">
-                  <LookupField
-                     value={$page.customerId}
-                     text={$page.customerName}
-                     onQuery="queryCustomers"
-                     optionIdField="id"
-                     optionTextField="text"
-                     fetchAll
-                     cacheAll
-                     placeholder="Klijent"
-                     style={{ width: '220px' }}
-                  />
-
                   <TextField placeholder="Pretraži usluge..." value={$page.searchQuery} icon="search" trim showClear />
-                  <Button onClick="addCustomerAction" text="Dodaj" mod="primary" icon="plus" />
+                  <Button onClick="addService" text="Dodaj" mod="primary" icon="plus" />
                </div>
             </div>
 
@@ -39,7 +27,7 @@ export default (
                         icon="pencil"
                         mod="secondary"
                         class="mr-2"
-                        onClick="editCustomerAction"
+                        onClick="editService"
                      />
 
                      <Button
@@ -47,7 +35,7 @@ export default (
                         disabled={expr($page.selected, (s) => !s)}
                         icon="x"
                         mod="danger"
-                        onClick="deleteCustomerAction"
+                        onClick="deleteService"
                         confirm={{
                            title: 'Brisanje usluge',
                            message: 'Da li ste sigurni da želite obrisati odabranu uslugu?',
@@ -59,36 +47,26 @@ export default (
                   </div>
                </div>
 
-               <Grid<CustomerActionResponse>
-                  records={$page.actions}
+               <Grid<ServiceResponse>
+                  records={$page.services}
                   columns={columns}
                   emptyText="Nema podataka"
                   className="flex-1"
-                  onRowDoubleClick="editCustomerAction"
+                  onRowDoubleClick="editService"
                   selection={{ type: KeySelection, bind: $page.selected, keyField: 'id' }}
                   sortField={$page.sortField}
                   sortDirection={$page.sortDirection}
-                  filterParams={{ query: $page.searchQuery, customerId: $page.customerId }}
-                  onCreateFilter={({ query, customerId }) => {
+                  filterParams={{ query: $page.searchQuery }}
+                  onCreateFilter={({ query }) => {
                      let predicate = getSearchQueryPredicate(query);
-
-                     return (record) => {
-                        if (customerId && record.customerId !== customerId) return false;
-
-                        return (
-                           predicate(record.serviceName) ||
-                           predicate(record.note) ||
-                           predicate(record.colorNote) ||
-                           predicate(record.customerName)
-                        );
-                     };
+                     return (record) => predicate(record.name);
                   }}
                   scrollable
                   lockColumnWidths
                />
             </div>
 
-            <DocumentTitle text="Customer Actions" />
+            <DocumentTitle text="Services" />
          </div>
       </PureContainer>
    </cx>

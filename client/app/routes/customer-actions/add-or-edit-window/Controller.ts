@@ -1,8 +1,10 @@
 import { Controller } from 'cx/ui';
-import m from './model';
 import { createCustomerAction, getCustomerActionById, updateCustomerAction } from '../../../api/CustomerActionApi';
 import { getAllCustomers } from '../../../api/CustomerApi';
-import { showSuccessToast, showErrorToast } from '../../../components/toasts';
+import { getAllServices } from '../../../api/ServiceApi';
+import { showErrorToast, showSuccessToast } from '../../../components/toasts';
+import { ServiceResponse } from '../../services/list/model';
+import m from './model';
 
 export default (resolve: (value: boolean) => void, actionId?: string) =>
    class extends Controller {
@@ -38,6 +40,26 @@ export default (resolve: (value: boolean) => void, actionId?: string) =>
          } catch (error) {
             console.error(error);
             showErrorToast('Greška prilikom učitavanja klijenata');
+            return [];
+         }
+      }
+
+      async queryServices(query: string) {
+         try {
+            const services = await getAllServices();
+
+            const options = (services as ServiceResponse[]).map((x) => ({
+               id: x.id,
+               text: x.name,
+            }));
+
+            if (!query) return options;
+
+            const q = query.toLowerCase();
+            return options.filter((x) => x.text.toLowerCase().includes(q));
+         } catch (error) {
+            console.error(error);
+            showErrorToast('Greška prilikom učitavanja usluga');
             return [];
          }
       }

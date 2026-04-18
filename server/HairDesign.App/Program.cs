@@ -1,8 +1,10 @@
 using HairDesign.App.Configuration;
-using HairDesign.App.Modules.CustomerActions.Commands;
-using HairDesign.App.Modules.CustomerActions.Queries;
-using HairDesign.App.Modules.Customers.Commands;
-using HairDesign.App.Modules.Customers.Queries;
+using HairDesign.App.Features.CustomerActions.Commands;
+using HairDesign.App.Features.CustomerActions.Queries;
+using HairDesign.App.Features.Customers.Commands;
+using HairDesign.App.Features.Customers.Queries;
+using HairDesign.App.Features.services.commands;
+using HairDesign.App.Features.services.queries;
 using HairDesign.App.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +25,12 @@ builder.Services.AddScoped<GetCustomerActionByIdQuery>();
 builder.Services.AddScoped<CreateCustomerActionCommand>();
 builder.Services.AddScoped<UpdateCustomerActionCommand>();
 builder.Services.AddScoped<DeleteCustomerActionCommand>();
+
+builder.Services.AddScoped<GetAllServicesQuery>();
+builder.Services.AddScoped<GetServiceByIdQuery>();
+builder.Services.AddScoped<CreateServiceCommand>();
+builder.Services.AddScoped<UpdateServiceCommand>();
+builder.Services.AddScoped<DeleteServiceCommand>();
 
 var app = builder.Build();
 

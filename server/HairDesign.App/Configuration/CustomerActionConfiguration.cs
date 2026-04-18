@@ -2,7 +2,7 @@ using HairDesign.App.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HairDesign.App.Configurations
+namespace HairDesign.App.Configuration
 {
     public class CustomerActionConfiguration : IEntityTypeConfiguration<CustomerAction>
     {
@@ -11,10 +11,6 @@ namespace HairDesign.App.Configurations
             builder.ToTable("CustomerAction");
 
             builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.Title)
-                .IsRequired()
-                .HasMaxLength(200);
 
             builder.Property(x => x.Note)
                 .HasMaxLength(2000);
@@ -35,6 +31,11 @@ namespace HairDesign.App.Configurations
                 .WithMany(x => x.Actions)
                 .HasForeignKey(x => x.CustomerId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.Service)
+                .WithMany(x => x.CustomerActions)
+                .HasForeignKey(x => x.ServiceId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -1,8 +1,8 @@
+using HairDesign.App.Features.Customers.Models;
 using HairDesign.App.Infrastructure;
-using HairDesign.App.Modules.Customers.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HairDesign.App.Modules.Customers.Commands
+namespace HairDesign.App.Features.Customers.Commands
 {
     public class UpdateCustomerCommand
     {

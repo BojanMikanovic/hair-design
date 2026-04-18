@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HairDesign.App.Modules.Customers.Models
+namespace HairDesign.App.Features.Customers.Models
 {
     public class CustomerUpdateDTO
     {

@@ -9,7 +9,7 @@ const getColumns = () => {
       sortable: true,
    });
 
-   cb.add((m) => m.title, {
+   cb.add((m) => m.serviceName, {
       header: 'Naziv',
       sortable: true,
    });

@@ -1,7 +1,7 @@
 using HairDesign.App.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace HairDesign.App.Modules.Customers.Commands
+namespace HairDesign.App.Features.Customers.Commands
 {
     public class DeleteCustomerCommand
     {
