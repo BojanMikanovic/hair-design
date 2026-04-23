@@ -30,6 +30,27 @@ async function checkOk(r: Response): Promise<Response> {
 
 const apiBaseUrl = '/api/';
 
+const ANTIFORGERY_HEADER = 'RequestVerificationToken';
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS', 'TRACE']);
+
+let cachedAntiforgeryToken: string | null = null;
+function getAntiforgeryToken(): string | null {
+   if (cachedAntiforgeryToken !== null) return cachedAntiforgeryToken;
+   const input = document.querySelector<HTMLInputElement>('input[name="__RequestVerificationToken"]');
+   cachedAntiforgeryToken = input?.value ?? null;
+   return cachedAntiforgeryToken;
+}
+
+let unauthorizedHandled = false;
+function handleUnauthorized(): void {
+   if (unauthorizedHandled) return;
+   unauthorizedHandled = true;
+   try {
+      window.store?.set('user', null);
+   } catch {}
+   window.location.reload();
+}
+
 export interface FetchOptions {
    authorize?: boolean;
    method?: string;
@@ -53,21 +74,30 @@ const defaultOptions: FetchOptions = {
 };
 
 export function resolveFetchOptions(options: FetchOptions): RequestInit {
-   const fetchOptions: RequestInit = {
-      headers: options.headers || {},
-      method: options.method || 'GET',
-      body: options.body,
-   };
+   const method = options.method || 'GET';
+   const headers: Record<string, string> = { ...(options.headers || {}) };
 
-   // if (options.authorize)
-   //     fetchOptions.headers["authorization"] = `Bearer ${access_token}`;
-   return fetchOptions;
+   if (!SAFE_METHODS.has(method.toUpperCase())) {
+      const token = getAntiforgeryToken();
+      if (token) headers[ANTIFORGERY_HEADER] = token;
+   }
+
+   return {
+      headers,
+      method,
+      body: options.body,
+      credentials: 'include',
+   };
 }
 
 export async function doFetch(path: string, options: FetchOptions = defaultOptions): Promise<Response> {
    const url = resolveAPIUrl(path, options.query);
    const fetchOptions = resolveFetchOptions(options);
    let response = await fetch(url, fetchOptions);
+   if (response.status === 401) {
+      handleUnauthorized();
+      throw Error('Unauthorized');
+   }
    response = await checkOk(response);
    return response;
 }

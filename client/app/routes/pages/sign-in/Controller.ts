@@ -1,33 +1,35 @@
-import { History } from 'cx/ui';
-import { MsgBox } from 'cx/widgets';
-import { showInfoToast } from '../../../util/toasts';
+import { showErrorToast } from '../../../util/toasts';
 
 export default {
-   async onSubmit(e, { store }) {
+   async onSubmit(e: Event, { store }: { store: { getData: () => any; set: (k: string, v: unknown) => void } }) {
       e.preventDefault();
-      let { invalid, email, password, rememberMe } = store.getData();
-      console.log(store.getData());
+      const { invalid, email, password, rememberMe } = store.getData();
       if (invalid) {
          store.set('visited', true);
          return;
       }
 
       try {
-         //let data = await POST("account/sign-in", { username, password, rememberMe })
-         //TODO: Display a toast
-         showInfoToast('Logged in as test@example.com.');
-
-         store.set('user', {
-            firstName: 'Test',
-            lastName: 'User',
-            initials: 'TU',
-            pictureUrl: 'https://source.unsplash.com/d-MfHM-jHwc/100x100/?face',
-            email: 'test@example.com',
+         const res = await fetch('/api/Auth/login', {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, rememberMe: !!rememberMe }),
          });
 
-         History.pushState({}, null, '~/dashboard');
+         if (res.status === 401) {
+            showErrorToast('Pogrešan email ili lozinka.');
+            return;
+         }
+         if (!res.ok) {
+            showErrorToast('Prijava nije uspjela.');
+            return;
+         }
+
+         window.location.reload();
       } catch (err) {
          console.error(err);
+         showErrorToast('Prijava nije uspjela.');
       }
    },
 };

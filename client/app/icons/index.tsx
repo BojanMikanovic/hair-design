@@ -32,6 +32,7 @@ import {
    Bars4Icon,
    XMarkIcon,
    ScissorsIcon,
+   ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 
 //register all icons that are used within the application
@@ -96,3 +97,5 @@ Icon.register('printer', ({ key, ...rest }) => <PrinterIcon key={key} {...rest} 
 Icon.register('pencil', ({ key, ...rest }) => <PencilIcon key={key} {...rest} />);
 
 Icon.register('scissors', ({ key, ...rest }) => <ScissorsIcon key={key} {...rest} />);
+
+Icon.register('logout', ({ key, ...rest }) => <ArrowRightOnRectangleIcon key={key} {...rest} />);

@@ -88,6 +88,15 @@ const NavigationContent = createFunctionalComponent(() => (
       <NavItem text="Klijenti" icon="users" href="~/customers" />
       <NavItem text="Usluge klijentima" icon="scissors" href="~/customer-actions" />
       <NavItem text="Usluge" icon="scissors" href="~/services" />
+      <NavItem
+         text="Odjava"
+         icon="logout"
+         href="/SignOut"
+         onClick={(e) => {
+            e.preventDefault();
+            window.location.href = '/SignOut';
+         }}
+      />
    </cx>
 ));
 

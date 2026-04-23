@@ -1,5 +1,6 @@
-import { Url, bind } from 'cx/ui';
+import { bind } from 'cx/ui';
 import { Icon, Link } from 'cx/widgets';
+import { logout } from '../../api/AuthApi';
 import '../../icons/user';
 import '../../icons/logout';
 
@@ -37,9 +38,11 @@ export const Layout = ({ children }: { children: unknown }) => (
                </SideLink>
                <SideLink
                   icon="logout"
-                  href="~/signout"
                   onClick={(e) => {
-                     window.location.href = Url.resolve('~/signout');
+                     e.preventDefault();
+                     void logout().finally(() => {
+                        window.location.href = '/';
+                     });
                      return false;
                   }}
                >

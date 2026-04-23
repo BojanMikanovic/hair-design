@@ -23,8 +23,9 @@ export default createFunctionalComponent(() => (
                <ValidationGroup invalid={bind('invalid')}>
                   <LabelsTopLayout vertical class="w-full">
                      <TextField
-                        value={bind('username')}
-                        label="Username"
+                        value={bind('email')}
+                        label="Email"
+                        inputType="email"
                         required
                         class="w-full"
                         validationMode="help-block"

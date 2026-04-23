@@ -7,24 +7,28 @@ import { renderThemeVariables, defaultPreset } from 'cx-theme-variables';
 // Apply the default preset
 renderThemeVariables({ ...defaultPreset, gridBorderRadius: '0' });
 
+interface InitUser {
+   email: string;
+   firstName: string;
+   lastName: string;
+   initials: string;
+   pictureUrl: string | null;
+}
+
 declare global {
    interface Window {
       store: Store;
+      initData?: { user: InitUser | false };
    }
 }
 
 enableCultureSensitiveFormatting();
 
 //store
+const initUser = window.initData?.user;
 const store = new Store({
    data: {
-      user: {
-         firstName: 'Test',
-         lastName: 'User',
-         initials: 'TU',
-         pictureUrl: 'https://source.unsplash.com/d-MfHM-jHwc/100x100/?face',
-         email: 'test@example.com',
-      },
+      user: initUser || null,
    },
 });
 
