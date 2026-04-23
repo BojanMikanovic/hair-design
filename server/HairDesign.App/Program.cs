@@ -110,11 +110,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 
 app.MapRazorPages();
 app.MapControllers();
+
+app.MapFallbackToFile("index.html").AllowAnonymous();
 
 app.Run();
