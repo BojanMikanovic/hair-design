@@ -13,8 +13,8 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
    mode: 'production',
 
    output: {
-      path: p('dist'),
-      publicPath: '/',
+      path: p('../server/HairDesign.App/wwwroot/desktop'),
+      publicPath: 'auto',
       filename: '[name].ltc.[contenthash].js',
       chunkFilename: '[name].ltc.[contenthash].js',
       hashDigestLength: 6,
