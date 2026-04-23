@@ -3,7 +3,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 FROM node:lts-alpine3.18 AS node-build
 WORKDIR /src/client
 COPY ./client/package.json ./client/yarn.lock ./client/.yarnrc.yml ./
-COPY ./client/.yarn ./.yarn
 RUN corepack enable
 RUN yarn install --immutable
 COPY ./client .
