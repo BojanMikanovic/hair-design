@@ -1,5 +1,4 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin'),
-   path = require('path'),
+const path = require('path'),
    p = (p) => path.join(__dirname, '../', p || ''),
    CxScssManifestPlugin = require('cx-scss-manifest-webpack-plugin'),
    manifest = require('cx/manifest');
@@ -108,10 +107,6 @@ module.exports = ({ rootCssLoader }) => {
          app: [p('app/index.tsx'), p('app/tailwind.css'), p('app/index.scss')],
       },
       plugins: [
-         new HtmlWebpackPlugin({
-            template: p('app/index.html'),
-         }),
-
          new CxScssManifestPlugin({
             outputPath: p('app/manifest.scss'),
          }),

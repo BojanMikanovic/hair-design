@@ -1,32 +1,31 @@
 const webpack = require('webpack'),
+      path = require('path'),
    { merge } = require('webpack-merge'),
-   common = require('./webpack.config');
+   common = require('./webpack.config'),
+    devCerts = require("office-addin-dev-certs");;
 
 process.env.TAILWIND_MODE = 'watch';
 
 module.exports = async () => {
+   let ssl = await devCerts.getHttpsServerOptions();
    return merge(common({ tailwindOptions: {}, rootCssLoader: 'style-loader' }), {
       mode: 'development',
 
       devtool: 'eval',
 
       output: {
-         publicPath: '/',
+         publicPath: 'https://localhost:7088/',
       },
 
       devServer: {
          hot: true,
-         port: 5228,
+         port: 7088,
          historyApiFallback: true,
-         proxy: [
-            {
-               context: ['/api'],
-               target: 'http://localhost:5227',
-               changeOrigin: true,
-               secure: false,
-               logLevel: 'debug',
-            },
-         ],
+         static: path.join(__dirname, "../public"),
+         server:{
+            type: 'https',
+            options: ssl
+         }
       },
    });
 };

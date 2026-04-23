@@ -14,6 +14,7 @@ builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
+builder.Services.AddRazorPages();
 builder.Services.AddScoped<GetAllCustomersQuery>();
 builder.Services.AddScoped<GetCustomerByIdQuery>();
 builder.Services.AddScoped<CreateCustomerCommand>();
@@ -42,7 +43,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.MapRazorPages();
 app.UseAuthorization();
 
 app.MapControllers();

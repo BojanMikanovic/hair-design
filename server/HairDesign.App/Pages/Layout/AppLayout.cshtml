@@ -1,0 +1,56 @@
+@using HairDesign.App.Features.Services
+@using HairDesign.App.Utilities
+@using Microsoft.AspNetCore.Html
+@inject IWebHostEnvironment HostingEnvironment;
+
+@{
+    Layout = null;
+    var distFileLookup = new DistFileLookup(HostingEnvironment.WebRootPath);
+    string GetFileName(string folder, string file, string ext)
+    {
+        var f = DebugUtil.IsDebugMode ? $"https://localhost:7088/{file}{ext}" : "~/" + folder + "/" + distFileLookup.ResolveFileName(folder, file, ext);
+
+        return Url.Content(f);
+    
+    }
+    IHtmlContent userDataStr = new HtmlString("false");
+
+    if (User.Identity is { IsAuthenticated: true })
+    {
+        var userData = await UserDataService.GetUserDataAsync(User);
+        userDataStr = Json.Serialize(userData);
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Hair Design</title>
+    
+    @if (!DebugUtil.IsDebugMode)
+    {
+        <link rel="stylesheet" href="@GetFileName("desktop", "app.ltc", ".css")"/>
+    }
+</head>
+<body>
+<div id="app"></div>
+@Html.AntiForgeryToken()
+@RenderBody()
+
+<script>
+    var initData = {
+        user: @userDataStr,
+       
+    };
+</script>
+@if (!DebugUtil.IsDebugMode)
+{
+    <script type="text/javascript" src="@GetFileName("desktop", "app.ltc", ".js")"></script>
+}
+else
+{
+    <script type="text/javascript" src="@GetFileName("desktop", "app", ".js")"></script>
+}
+</body>
+</html>
