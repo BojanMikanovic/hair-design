@@ -14,7 +14,7 @@ WORKDIR /src
 COPY ["server/HairDesign.App/HairDesign.App.csproj", "HairDesign.App/"]
 RUN dotnet restore "HairDesign.App/HairDesign.App.csproj"
 COPY ./server/HairDesign.App ./HairDesign.App
-COPY --from=node-build /src/client/dist ./HairDesign.App/wwwroot/desktop
+COPY --from=node-build /src/server/HairDesign.App/wwwroot/desktop ./HairDesign.App/wwwroot/desktop
 WORKDIR /src/HairDesign.App
 RUN dotnet build "HairDesign.App.csproj" -c Release -o /app/build
 
