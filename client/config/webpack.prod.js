@@ -13,8 +13,8 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
    mode: 'production',
 
    output: {
-      path: p('dist'),
-      publicPath: '/',
+      path: p('../server/HairDesign.App/wwwroot/desktop'),
+      publicPath: 'auto',
       filename: '[name].ltc.[contenthash].js',
       chunkFilename: '[name].ltc.[contenthash].js',
       hashDigestLength: 6,
@@ -33,24 +33,6 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
       new MiniCssExtractPlugin({
          filename: '[name].ltc.[contenthash].css',
          chunkFilename: '[name].ltc.[contenthash].css',
-      }),
-      new CopyWebpackPlugin({
-         patterns: [
-            {
-               from: path.resolve(__dirname, '../public'),
-               to: '.',
-            },
-            {
-               from: path.resolve(__dirname, './netlify.redirects'),
-               to: '_redirects',
-               toType: 'file',
-            },
-            {
-               from: path.resolve(__dirname, './netlify.headers'),
-               to: '_headers',
-               toType: 'file',
-            },
-         ],
       }),
       new CleanWebpackPlugin({
          dry: false,

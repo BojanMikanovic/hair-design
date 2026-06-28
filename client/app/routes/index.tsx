@@ -5,6 +5,7 @@ import SignIn from './pages/sign-in';
 import Customers from './customers/list';
 import CustomerActions from './customer-actions/list';
 import Services from './services/list';
+import Users from './users/list';
 
 export default (
    <cx>
@@ -22,6 +23,9 @@ export default (
             </Route>
             <Route route="~/services" url={bind('url')} prefix>
                <Services />
+            </Route>
+            <Route route="~/users" url={bind('url')} prefix>
+               <Users />
             </Route>
          </CheckerLayout>
       </FirstVisibleChildLayout>

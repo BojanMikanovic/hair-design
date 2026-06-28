@@ -88,6 +88,7 @@ const NavigationContent = createFunctionalComponent(() => (
       <NavItem text="Klijenti" icon="users" href="~/customers" />
       <NavItem text="Usluge klijentima" icon="scissors" href="~/customer-actions" />
       <NavItem text="Usluge" icon="scissors" href="~/services" />
+      <NavItem text="Korisnici" icon="user-group" href="~/users" />
       <NavItem
          text="Odjava"
          icon="logout"

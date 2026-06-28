@@ -7,6 +7,8 @@ using HairDesign.App.Features.Customers.Commands;
 using HairDesign.App.Features.Customers.Queries;
 using HairDesign.App.Features.services.commands;
 using HairDesign.App.Features.services.queries;
+using HairDesign.App.Features.Users.Commands;
+using HairDesign.App.Features.Users.Queries;
 using HairDesign.App.Utilities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -90,6 +92,13 @@ builder.Services.AddScoped<DeleteServiceCommand>();
 
 builder.Services.AddScoped<LoginCommand>();
 
+builder.Services.AddScoped<GetAllUsersQuery>();
+builder.Services.AddScoped<GetUserByIdQuery>();
+builder.Services.AddScoped<CreateUserCommand>();
+builder.Services.AddScoped<UpdateUserCommand>();
+builder.Services.AddScoped<DeleteUserCommand>();
+builder.Services.AddScoped<ResetPasswordCommand>();
+
 var app = builder.Build();
 
 MigrationsUtil.MigrateDatabase(app.Services);
@@ -101,11 +110,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 
 app.MapRazorPages();
 app.MapControllers();
+
+app.MapFallbackToFile("index.html").AllowAnonymous();
 
 app.Run();
