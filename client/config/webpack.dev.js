@@ -1,8 +1,8 @@
 const webpack = require('webpack'),
-      path = require('path'),
+   path = require('path'),
    { merge } = require('webpack-merge'),
    common = require('./webpack.config'),
-    devCerts = require("office-addin-dev-certs");;
+   devCerts = require('office-addin-dev-certs');
 
 process.env.TAILWIND_MODE = 'watch';
 
@@ -20,17 +20,18 @@ module.exports = async () => {
       devServer: {
          hot: true,
          port: 7088,
+         allowedHosts: 'all',
          historyApiFallback: true,
-         static: path.join(__dirname, "../public"),
-         server:{
+         static: path.join(__dirname, '../public'),
+         server: {
             type: 'https',
-            options: ssl
+            options: ssl,
          },
          headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-                "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-            }
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+            'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+         },
       },
    });
 };

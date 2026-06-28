@@ -1,5 +1,14 @@
-import { LabelsTopLayout } from 'cx/ui';
-import { Button, LookupField, TextArea, TextField, ValidationGroup, Window, DateField, NumberField } from 'cx/widgets';
+import {
+   Button,
+   DateField,
+   LabelsTopLayout,
+   LookupField,
+   NumberField,
+   TextArea,
+   TextField,
+   ValidationGroup,
+   Window,
+} from 'cx/widgets';
 import getController from './Controller';
 import m from './model';
 
@@ -15,10 +24,10 @@ export const showCustomerActionsWindow = (actionId?: string): Promise<boolean> =
                controller={getController(resolve, actionId)}
                onDestroy={() => resolve(false)}
                dismissOnPopState
-               style={{ width: '400px' }}
+               style={{ width: '650px', top: '5%' }}
             >
                <ValidationGroup invalid={m.formInvalid} visited={m.formVisited}>
-                  <div className="p-4">
+                  <div className="grid grid-cols-2 gap-4 p-4">
                      <LabelsTopLayout vertical mod="stretch">
                         <LookupField
                            label="Klijent"
@@ -32,7 +41,9 @@ export const showCustomerActionsWindow = (actionId?: string): Promise<boolean> =
                            required
                            style={{ width: '100%' }}
                         />
+                     </LabelsTopLayout>
 
+                     <LabelsTopLayout vertical mod="stretch">
                         <LookupField
                            label="Usluga"
                            value={m.customerAction.serviceId}
@@ -45,9 +56,13 @@ export const showCustomerActionsWindow = (actionId?: string): Promise<boolean> =
                            required
                            style={{ width: '100%' }}
                         />
+                     </LabelsTopLayout>
 
+                     <LabelsTopLayout vertical mod="stretch">
                         <DateField label="Datum" value={m.customerAction.date} required style={{ width: '100%' }} />
+                     </LabelsTopLayout>
 
+                     <LabelsTopLayout vertical mod="stretch">
                         <NumberField
                            label="Cijena"
                            value={m.customerAction.price}
@@ -55,16 +70,29 @@ export const showCustomerActionsWindow = (actionId?: string): Promise<boolean> =
                            format="n2"
                            style={{ width: '100%' }}
                         />
-
-                        <TextField
-                           label="Zabiljeske o boji"
-                           value={m.customerAction.colorNote}
-                           trim
-                           style={{ width: '100%' }}
-                        />
-
-                        <TextArea label="Napomena" value={m.customerAction.note} rows={4} style={{ width: '100%' }} />
                      </LabelsTopLayout>
+
+                     <div className="col-span-2">
+                        <LabelsTopLayout vertical mod="stretch">
+                           <TextField
+                              label="Zabilješke o boji"
+                              value={m.customerAction.colorNote}
+                              trim
+                              style={{ width: '100%' }}
+                           />
+                        </LabelsTopLayout>
+                     </div>
+
+                     <div className="col-span-2">
+                        <LabelsTopLayout vertical mod="stretch">
+                           <TextArea
+                              label="Napomena"
+                              value={m.customerAction.note}
+                              rows={3}
+                              style={{ width: '100%' }}
+                           />
+                        </LabelsTopLayout>
+                     </div>
                   </div>
 
                   <div putInto="footer" className="flex justify-end gap-2 px-4 py-3">

@@ -23,6 +23,8 @@ export interface Model {
       customerName: string | null;
       sortField: string;
       sortDirection: string;
+      serviceId: string | null;
+      serviceName: string | null;
    };
 }
 

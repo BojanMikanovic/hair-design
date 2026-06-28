@@ -25,7 +25,17 @@ export default (
                      style={{ width: '220px' }}
                   />
 
-                  <TextField placeholder="Pretraži usluge..." value={$page.searchQuery} icon="search" trim showClear />
+                  <LookupField
+                     value={$page.serviceId}
+                     text={$page.serviceName}
+                     onQuery="queryServices"
+                     optionIdField="id"
+                     optionTextField="text"
+                     fetchAll
+                     cacheAll
+                     placeholder="Usluga"
+                     style={{ width: '220px' }}
+                  />
                   <Button onClick="addCustomerAction" text="Dodaj" mod="primary" icon="plus" />
                </div>
             </div>
@@ -68,19 +78,17 @@ export default (
                   selection={{ type: KeySelection, bind: $page.selected, keyField: 'id' }}
                   sortField={$page.sortField}
                   sortDirection={$page.sortDirection}
-                  filterParams={{ query: $page.searchQuery, customerId: $page.customerId }}
-                  onCreateFilter={({ query, customerId }) => {
-                     let predicate = getSearchQueryPredicate(query);
-
+                  filterParams={{
+                     customerId: $page.customerId,
+                     serviceId: $page.serviceId,
+                  }}
+                  onCreateFilter={({ customerId, serviceId }) => {
                      return (record) => {
                         if (customerId && record.customerId !== customerId) return false;
 
-                        return (
-                           predicate(record.serviceName) ||
-                           predicate(record.note) ||
-                           predicate(record.colorNote) ||
-                           predicate(record.customerName)
-                        );
+                        if (serviceId && record.serviceId !== serviceId) return false;
+
+                        return true;
                      };
                   }}
                   scrollable

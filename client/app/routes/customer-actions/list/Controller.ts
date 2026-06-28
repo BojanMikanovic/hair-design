@@ -1,8 +1,10 @@
 import { Controller, Instance } from 'cx/ui';
 import { deleteCustomerAction, getAllCustomerActions } from '../../../api/CustomerActionApi';
 import { getAllCustomers } from '../../../api/CustomerApi';
+import { getAllServices } from '../../../api/ServiceApi';
 import { showErrorToast, showSuccessToast } from '../../../components/toasts';
 import { CustomerResponse } from '../../customers/list/model';
+import { ServiceResponse } from '../../services/list/model';
 import { showCustomerActionsWindow } from '../add-or-edit-window/showCustomerActionsWindow';
 import { $page, Model } from './model';
 
@@ -14,6 +16,8 @@ export default class extends Controller<Model> {
       this.store.init($page.searchQuery, '');
       this.store.init($page.sortField, 'createdAt');
       this.store.init($page.sortDirection, 'DESC');
+      this.store.init($page.serviceId, null);
+      this.store.init($page.serviceName, '');
 
       this.loadCustomerActions();
    }
@@ -48,6 +52,26 @@ export default class extends Controller<Model> {
       } catch (error) {
          console.error(error);
          showErrorToast('Greška prilikom učitavanja klijenata');
+         return [];
+      }
+   }
+
+   async queryServices(query: string) {
+      try {
+         const services = await getAllServices();
+
+         const options = (services as ServiceResponse[]).map((x: any) => ({
+            id: x.id,
+            text: x.name,
+         }));
+
+         if (!query) return options;
+
+         const q = query.toLowerCase();
+         return options.filter((x) => x.text.toLowerCase().includes(q));
+      } catch (error) {
+         console.error(error);
+         showErrorToast('Greška prilikom učitavanja usluga');
          return [];
       }
    }
